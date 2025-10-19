@@ -40,7 +40,7 @@ func TestViaCEPClientGetLocationByZipcode(t *testing.T) {
 			mockResponse: &dto.ViaCEPResponse{
 				Localidade: "Belford Roxo",
 				UF:         "RJ",
-				Erro:       false,
+				Erro:       "",
 			},
 			mockStatusCode: http.StatusOK,
 			expected: &domain.Location{
@@ -52,7 +52,7 @@ func TestViaCEPClientGetLocationByZipcode(t *testing.T) {
 		{
 			name:           "CEP não encontrado",
 			zipcode:        "99999999",
-			mockResponse:   &dto.ViaCEPResponse{Erro: true},
+			mockResponse:   &dto.ViaCEPResponse{Erro: "true"},
 			mockStatusCode: http.StatusOK,
 			expected:       nil,
 			expectedErr:    domain.ErrZipcodeNotFound,
