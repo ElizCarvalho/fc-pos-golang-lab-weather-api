@@ -73,6 +73,22 @@ go test -v -cover ./...
 
 ## 📚 API
 
+### 🌐 API em Produção (Cloud Run)
+
+A API está disponível em produção no Google Cloud Run:
+
+**URL**: <https://fc-pos-golang-lab-weather-api-251144898733.us-central1.run.app>
+
+#### Teste da API Deployada
+
+```bash
+# Exemplo de uso com CEP válido
+curl "https://fc-pos-golang-lab-weather-api-251144898733.us-central1.run.app/weather/26140040"
+
+# Formato da resposta esperada:
+# {"temp_C":17.2,"temp_F":63,"temp_K":290.2}
+```
+
 ### Endpoint
 
 ```text
@@ -148,6 +164,27 @@ go test -v ./tests/...
 
 # Com cobertura
 go test -v -cover ./...
+```
+
+## ☁️ Deploy no Google Cloud Run
+
+### Comandos de Deploy
+
+```bash
+# 1. Build da imagem Docker
+docker build -t gcr.io/SEU_PROJECT_ID/fc-pos-golang-lab-weather-api .
+
+# 2. Push da imagem para Google Container Registry
+docker push gcr.io/SEU_PROJECT_ID/fc-pos-golang-lab-weather-api
+
+# 3. Deploy no Cloud Run
+gcloud run deploy fc-pos-golang-lab-weather-api \
+  --image gcr.io/SEU_PROJECT_ID/fc-pos-golang-lab-weather-api \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --port 8080 \
+  --set-env-vars="WEATHER_API_KEY=sua_chave_aqui"
 ```
 
 ## 📊 Conversões de Temperatura
