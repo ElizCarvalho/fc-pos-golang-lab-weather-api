@@ -53,7 +53,7 @@ func (c *viacepClient) GetLocationByZipcode(zipcode string) (*domain.Location, e
 		return nil, fmt.Errorf("error parsing ViaCEP response: %w", err)
 	}
 
-	if viacepResp.Erro || viacepResp.Localidade == "" {
+	if viacepResp.Erro == "true" || viacepResp.Localidade == "" {
 		return nil, domain.ErrZipcodeNotFound
 	}
 
